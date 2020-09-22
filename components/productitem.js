@@ -1,7 +1,17 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { getImage } from "../firebase"
 
 const ProductItem = ({ prod }) => {
     const [quantity, setQuantity] = useState(0)
+    const [image, setImage] = useState(null)
+
+    useEffect(() => {
+        getImage(prod.image).then(res => {
+            console.log(res);
+            setImage(res)
+        })
+        return () => { }
+    }, [])
 
     const addQuantity = (e) => {
         const res = quantity + 1;
@@ -17,7 +27,7 @@ const ProductItem = ({ prod }) => {
         <>
             <div className="main-container">
                 <div>
-                    <img className="icon" src={prod.image} />
+                    {image === null ? <></> : <img className="icon" src={image} />}
                 </div>
                 <div className="item-features">
                     <div className="description">
