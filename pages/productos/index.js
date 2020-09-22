@@ -22,7 +22,8 @@ function ProductPage({ data }) {
 }
 
 ProductPage.getInitialProps = async (ctx) => {
-    const data = await fetch('http://localhost:3000/api/products')
+    const host = process.env.HOST || 'http://localhost:3000'
+    const data = await fetch(host + '/api/products')
         .then(response => response.json())
 
     return {
